@@ -1,29 +1,27 @@
 pipeline {
 agent any
 stages {
-stage('CodeCheckout') {
+stage ('CodeCheckOut') {
 steps {
 script {
 checkout scm
+sh "yum install -y maven"
 def mvnHome = tool 'Maven'
 }
+} 
 }
-}
-stage('Build Maven App') {
-steps {
-script {
+stage('Build spring boot app'){
+steps{
+script{
 checkout scm
 def mvnHome = tool 'Maven'
 try {
 sh "mvn clean install"
-currentBuild.result = 'Success'
-} 
-catch (Exception err) {
+currentBuild.result = 'SUCCESS'
+} catch (Exception err) {
 currentBuild.result = 'FAILURE'
 sh "exit 1"
-sh "java -version"
 }
+}}
 }
-}
-}
-}
+}}
