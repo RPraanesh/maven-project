@@ -25,4 +25,3 @@ sh "java -version"
 }
 }}
 }
-}
